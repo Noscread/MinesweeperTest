@@ -6,4 +6,3 @@
 
 itch：https://noscread.itch.io/minesweepertest
 
-![Uploading image.png…]()
