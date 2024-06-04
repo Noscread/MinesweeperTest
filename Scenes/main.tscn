@@ -1,0 +1,161 @@
+[gd_scene load_steps=14 format=3 uid="uid://xnnqm7wk4ic0"]
+
+[ext_resource type="Texture2D" uid="uid://rnlh7i7tjcp5" path="res://Assets/my_atlas.png" id="1_w2h1p"]
+[ext_resource type="Texture2D" uid="uid://bfth2tppcxtvt" path="res://Assets/minesweeper_atlas.png" id="2_ujecn"]
+[ext_resource type="Script" path="res://Scripts/MineGrid.gd" id="2_w2s0i"]
+[ext_resource type="Script" path="res://Scripts/UI.gd" id="4_m5fy4"]
+[ext_resource type="FontFile" uid="uid://dx3hjdh75uimq" path="res://Assets/DS-DIGIB.TTF" id="4_peny3"]
+[ext_resource type="Texture2D" uid="uid://bh6t6gan0urbe" path="res://Assets/button_smile.png" id="5_0tajw"]
+[ext_resource type="Texture2D" uid="uid://b3ghf4gsde4l5" path="res://Assets/button_smile_pressed.png" id="6_bi8vw"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="8_c8ker"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4pn21"]
+texture = ExtResource("1_w2h1p")
+margins = Vector2i(4, 4)
+separation = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/next_alternative_id = 2
+2:2/0 = 0
+2:2/1 = 1
+2:2/1/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8knt0"]
+texture = ExtResource("2_ujecn")
+margins = Vector2i(4, 4)
+separation = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_uyf62"]
+custom_data_layer_0/name = "has_mine"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_4pn21")
+sources/1 = SubResource("TileSetAtlasSource_8knt0")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgd1f"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwobp"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="MineGrid" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_uyf62")
+format = 2
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("2_w2s0i")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("4_m5fy4")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 40)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="MineCountPanel" type="Panel" parent="UI/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_sgd1f")
+
+[node name="MineCount" type="Label" parent="UI/PanelContainer/HBoxContainer/MineCountPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_peny3")
+theme_override_font_sizes/font_size = 25
+text = "000
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameStateButton" type="TextureButton" parent="UI/PanelContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("5_0tajw")
+texture_pressed = ExtResource("6_bi8vw")
+
+[node name="TimeCountPanel" type="Panel" parent="UI/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_uwobp")
+
+[node name="TimeCount" type="Label" parent="UI/PanelContainer/HBoxContainer/TimeCountPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_peny3")
+theme_override_font_sizes/font_size = 25
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("8_c8ker")
+
+[node name="GameTimer" type="Timer" parent="GameManager"]
+autostart = true
+
+[connection signal="lose" from="MineGrid" to="GameManager" method="_on_mine_grid_lose"]
+[connection signal="update_flags" from="MineGrid" to="GameManager" method="_on_mine_grid_update_flags"]
+[connection signal="win" from="MineGrid" to="GameManager" method="_on_mine_grid_win"]
+[connection signal="pressed" from="UI/PanelContainer/HBoxContainer/GameStateButton" to="UI" method="_on_game_state_button_pressed"]
+[connection signal="timeout" from="GameManager/GameTimer" to="GameManager" method="_on_game_timer_timeout"]

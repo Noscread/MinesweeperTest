@@ -1,0 +1,4 @@
+res://Scripts/MineGrid.gd
+res://Scripts/GameManager.gd
+res://Scripts/UI.gd
+res://Scenes/main.tscn
