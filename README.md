@@ -5,3 +5,5 @@
 点开的格子，鼠标左键快速判断是否可以点开周围格子
 
 itch：https://noscread.itch.io/minesweepertest
+
+![Uploading image.png…]()
